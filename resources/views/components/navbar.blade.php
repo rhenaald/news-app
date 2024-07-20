@@ -67,29 +67,35 @@
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div x-show="isOpen" class="md:hidden" id="mobile-menu">
-      <div class="space-y-1 px-2 pb-3  pt-2 sm:px-3">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')"  mobile="true">Home</x-nav-link-header-news>
-          <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')"  mobile="true">Terkini</x-nav-link-header-news>
-          <x-nav-link-header-news type="nav" href="/populer" :active="request()->is('populer')"  mobile="true">Terpopuler</x-nav-link-header-news>
-          <x-nav-link-header-news type="nav" href="/top-news" :active="request()->is('top-news')"  mobile="true">Top News</x-nav-link-header-news>
-          <x-nav-link-header-news type="nav" href="/pilihan-editor" :active="request()->is('pilihan-editor')"  mobile="true">Pilihan Editor</x-nav-link-header-news>
-      </div>
-      <div class="bg-sky-400 border-t border-white pb-3 pt-4">
-        <div class="flex items-center px-5">
-          <div class="flex-shrink-0">
-            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+      <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+        <div x-data="{ open: false }" class="relative">
+          <div class="flex items-center px-5">
+            <div class="flex-shrink-0">
+              <img @click="open = !open" class="h-10 w-10 rounded-full cursor-pointer" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            </div>
+            <div class="ml-3">
+              <div class="text-base font-medium leading-none text-white">Tom Cook</div>
+              <div class="text-sm font-medium leading-none text-white">tom@example.com</div>
+            </div>
           </div>
-          <div class="ml-3">
-            <div class="text-base font-medium leading-none text-white">Tom Cook</div>
-            <div class="text-sm font-medium leading-none text-white">tom@example.com</div>
+
+          <!-- Kotak kecil yang muncul di samping foto -->
+          <div x-show="open" @click.away="open = false" class="absolute top-10 left-2 mt-2 w-48 bg-white text-white rounded-md shadow-lg">
+            <div class="px-4 py-3">
+              <x-nav-link-header-news type="default" href="/profile" :active="request()->is('profile')" mobile="true">Your profile</x-nav-link-header-news>
+              <x-nav-link-header-news type="default" href="/setting" :active="request()->is('setting')" mobile="true">Setting</x-nav-link-header-news>
+              <x-nav-link-header-news type="default" href="/signout" :active="request()->is('sign-out')" mobile="true">Sign out</x-nav-link-header-news>
+            </div>
           </div>
+
         </div>
-        <div class="mt-3 space-y-1 px-2">
-          <x-nav-link-header-news type="nav" href="/profile" :active="request()->is('profile')"  mobile="true">Your profile</x-nav-link-header-news>
-          <x-nav-link-header-news type="nav" href="/setting" :active="request()->is('setting')"  mobile="true">setting</x-nav-link-header-news>
-          <x-nav-link-header-news type="nav" href="/signout" :active="request()->is('sign-out')"  mobile="true">sign out</x-nav-link-header-news>
-        </div>
+        <!-- Links di bawah -->
+        <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')" mobile="true">Home</x-nav-link-header-news>
+        <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')" mobile="true">Terkini</x-nav-link-header-news>
+        <x-nav-link-header-news type="nav" href="/populer" :active="request()->is('populer')" mobile="true">Terpopuler</x-nav-link-header-news>
+        <x-nav-link-header-news type="nav" href="/top-news" :active="request()->is('top-news')" mobile="true">Top News</x-nav-link-header-news>
+        <x-nav-link-header-news type="nav" href="/pilihan-editor" :active="request()->is('pilihan-editor')" mobile="true">Pilihan Editor</x-nav-link-header-news>
       </div>
-    </div>
+  </div>
+
   </nav>
