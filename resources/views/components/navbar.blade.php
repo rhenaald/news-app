@@ -1,4 +1,4 @@
-<nav class="bg-gray-800" x-data="{ isOpen: false }">
+<nav class="bg-sky-400" x-data="{ isOpen: false }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center justify-center w-full">
@@ -7,10 +7,11 @@
           <div class="hidden md:block">
             <div class="flex items-baseline space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <a href="/" class="{{ request ()->is('/') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</a>
-              <a href="/about" class="{{ request ()->is('about') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">About</a>
-              <a href="/blog" class="{{ request ()->is('blog') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">Blog</a>
-              <a href="/contact" class="{{ request ()->is('contact') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">Contact</a>
+              <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')">Home</x-nav-link-header-news>
+              <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')">Terkini</x-nav-link-header-news>
+              <x-nav-link-header-news type="nav" href="/populer" :active="request()->is('populer')">Terpopuler</x-nav-link-header-news>
+              <x-nav-link-header-news type="nav" href="/top-news" :active="request()->is('top-news')">Top News</x-nav-link-header-news>
+              <x-nav-link-header-news type="nav" href="/pilihan-editor" :active="request()->is('pilihan-editor')">Pilihan Editor</x-nav-link-header-news>
             </div>
           </div>
         </div>
@@ -66,27 +67,28 @@
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div x-show="isOpen" class="md:hidden" id="mobile-menu">
-      <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+      <div class="space-y-1 px-2 pb-3  pt-2 sm:px-3">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</a>
-        <a href="/about" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">About</a>
-        <a href="/blog" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Blog</a>
-        <a href="/contact" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact</a>
+          <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')"  mobile="true">Home</x-nav-link-header-news>
+          <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')"  mobile="true">Terkini</x-nav-link-header-news>
+          <x-nav-link-header-news type="nav" href="/populer" :active="request()->is('populer')"  mobile="true">Terpopuler</x-nav-link-header-news>
+          <x-nav-link-header-news type="nav" href="/top-news" :active="request()->is('top-news')"  mobile="true">Top News</x-nav-link-header-news>
+          <x-nav-link-header-news type="nav" href="/pilihan-editor" :active="request()->is('pilihan-editor')"  mobile="true">Pilihan Editor</x-nav-link-header-news>
       </div>
-      <div class="border-t border-gray-700 pb-3 pt-4">
+      <div class="bg-sky-400 border-t border-white pb-3 pt-4">
         <div class="flex items-center px-5">
           <div class="flex-shrink-0">
             <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
           </div>
           <div class="ml-3">
             <div class="text-base font-medium leading-none text-white">Tom Cook</div>
-            <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+            <div class="text-sm font-medium leading-none text-white">tom@example.com</div>
           </div>
         </div>
         <div class="mt-3 space-y-1 px-2">
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your Profile</a>
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign out</a>
+          <x-nav-link-header-news type="nav" href="/profile" :active="request()->is('profile')"  mobile="true">Your profile</x-nav-link-header-news>
+          <x-nav-link-header-news type="nav" href="/setting" :active="request()->is('setting')"  mobile="true">setting</x-nav-link-header-news>
+          <x-nav-link-header-news type="nav" href="/signout" :active="request()->is('sign-out')"  mobile="true">sign out</x-nav-link-header-news>
         </div>
       </div>
     </div>
