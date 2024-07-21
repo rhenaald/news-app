@@ -1,53 +1,31 @@
 <?php
-use Illuminate\Support\Arr;
+
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('home', [
         'title' => 'Home Page',
-        'posts' => [
-            [
-                'id' => 1,
-                'slug' => 'judul-artikel-1',
-                'title' => 'Judul Artikel 1',
-                'author' => 'Ikhwan Kurniawan Julianto',
-                'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quisquam atque labore, inventore ab, excepturi recusandae autem quod vitae iste enim consequatur deserunt voluptates, fugiat eveniet repudiandae odit sapiente non.',
-            ],
-            [
-                'id' => 2,
-                'slug' => 'judul-artikel-2',
-                'title' => 'Judul Artikel 2',
-                'author' => 'Ikhwan Kurniawan Julianto',
-                'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quisquam atque labore, inventore ab, excepturi recusandae autem quod vitae iste enim consequatur deserunt voluptates, fugiat eveniet repudiandae odit sapiente non.',
-            ]
-        ]
+        'posts' => Post::all()
     ]);
 });
 
-Route::get('/posts/{slug}', function ($slug) {
-    $posts = [
-        [
-            'id' => 1,
-            'slug' => 'judul-artikel-1',
-            'title' => 'Judul Artikel 1',
-            'author' => 'Ikhwan Kurniawan Julianto',
-            'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quisquam atque labore, inventore ab, excepturi recusandae autem quod vitae iste enim consequatur deserunt voluptates, fugiat eveniet repudiandae odit sapiente non.',
-        ],
-        [
-            'id' => 2,
-            'slug' => 'judul-artikel-2',
-            'title' => 'Judul Artikel 2',
-            'author' => 'Ikhwan Kurniawan Julianto',
-            'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quisquam atque labore, inventore ab, excepturi recusandae autem quod vitae iste enim consequatur deserunt voluptates, fugiat eveniet repudiandae odit sapiente non.',
-        ]
-    ];
-
-    $post = Arr::first($posts, function($post) use ($slug) {
-        return $post['slug'] == $slug;
-    });
-
-    return view('post', ['title' => 'Single Post', 'post' => $post]);
+Route::get('/posts/{post:slug}', function (Post $post) {
+    return view('post', [
+        'title' => 'Single Post',
+        'post' => $post
+    ]);
 });
+
+Route::get('/authors/{user}', function (User $user) {
+    $sub_judul = $user->name ? 'artikel by ' . $user->name : '';
+    return view('home', [
+        'sub_judul'=>$sub_judul,
+        'title' => 'artikel by ' . $user->name,
+        'posts' => $user->posts]);
+});
+
 
 Route::get('/terkini', function () {
     return view('terkini', ['title' =>'blog terkini']);
