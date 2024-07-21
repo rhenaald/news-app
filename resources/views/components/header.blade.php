@@ -13,7 +13,7 @@
           <x-nav-link-header-news type="default" href="/ekonomi" :active="request()->is('ekonomi')">Ekonomi</x-nav-link-header-news>
         </div>
       </div>
-      <div class="md:hidden w-full">
+      <div class="md:hidden md:items-center md:justify-center w-full">
         <div class="px-4 pt-2">
           <div class="flex space-x-4">
             <x-nav-link-header-news type="default" href="/politik" :active="request()->is('politik')" mobile="true">Politik</x-nav-link-header-news>
