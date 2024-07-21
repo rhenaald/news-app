@@ -44,6 +44,8 @@
             </div>
           </div>
         </div>
+
+
         <div class="-mr-2 flex md:hidden">
           <!-- Mobile menu button -->
           <button type="button" @click="isOpen = !isOpen" 
@@ -64,6 +66,8 @@
         </div>
       </div>
     </div>
+
+    <x-header></x-header>
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div x-show="isOpen" class="md:hidden" id="mobile-menu">
