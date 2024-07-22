@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 
 Route::get('/', function () {
     return view('home', [
@@ -18,14 +19,21 @@ Route::get('/posts/{post:slug}', function (Post $post) {
     ]);
 });
 
-Route::get('/authors/{user}', function (User $user) {
-    $sub_judul = $user->name ? 'artikel by ' . $user->name : '';
+Route::get('/authors/{user:username}', function (User $user) {
+    $sub_judul = $user->name ? count($user->posts) .  ' Artikel by ' . $user->name : '';
     return view('home', [
         'sub_judul'=>$sub_judul,
         'title' => 'artikel by ' . $user->name,
         'posts' => $user->posts]);
 });
 
+Route::get('/categories/{category:slug}', function (Category $category) {
+    $sub_judul = $category->name ? ' Artikel in ' . $category->name : '';
+    return view('home', [
+        'sub_judul'=>$sub_judul,
+        'title' => 'artikel in ' . $category->name,
+        'posts' => $category->posts]);
+});
 
 Route::get('/terkini', function () {
     return view('terkini', ['title' =>'blog terkini']);
