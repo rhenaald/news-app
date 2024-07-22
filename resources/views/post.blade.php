@@ -5,10 +5,14 @@
             {{ $post->title }} <!-- Akses properti menggunakan -> -->
         </h2>
 
-        <div class="font-base text-gray-500">
-            <a href="/authors/{{ $post->author->name }}">{{ $post->author->name }}</a> <!-- Akses nama penulis -->
-            | {{ $post->created_at->diffForHumans() }}
-        </div>
+            <div>
+                By 
+                <a href="/categories/{{ $post->category->slug }}">{{ $post->author->name }}</a> 
+                in
+                <a href="/categories/{{ $post->category->slug }}" class="font-base text-gray-500 hover:underline">{{ $post->category->name }}</a>
+                | {{$post->created_at->diffForHumans()}}
+            </div>
+
         <p class="my-4 font-light">{{ $post->body }}</p>
         <a href="/" class="font-medium text-blue-500 hover:underline">&laquo; Kembali ke beranda</a>
     </article>
