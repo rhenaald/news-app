@@ -28,7 +28,7 @@ class CategorySeeder extends Seeder
         Category::Create([
             'name' => 'Game Developer',
             'slug' => 'game-developer',
-            'color' => 'yelow'
+            'color' => 'yellow'
         ]);
 
         Category::Create([
