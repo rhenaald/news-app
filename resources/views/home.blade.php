@@ -7,7 +7,7 @@
             @foreach ($posts as $post)
                 <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-5 text-gray-500">
-                        <span class="bg-{{ $post->category->color }}-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800 hover:underline">
+                        <span class="bg-{{ $post->category->color }}-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                             <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a>
                         </span>
                         <span class="text-sm">{{ $post->created_at->diffForHumans() }}</span>
@@ -19,9 +19,9 @@
                     <div class="flex justify-between items-center">
                         <a href="/authors/{{ $post->author->username }}">
                             <div class="flex items-center space-x-4">
-                                <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                                <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="{{ $post->author->username }}" />
                                 <span class="font-medium text-xs dark:text-white hover:underline">
-                                    {{ $post->author->username }}
+                                    {{ $post->author->name }}
                                 </span>
                             </div>
                         </a>
