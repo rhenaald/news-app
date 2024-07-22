@@ -10,8 +10,6 @@ export default {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
         "./node_modules/flowbite/**/*.js"
     ],
 
@@ -42,7 +40,7 @@ export default {
         },
     },
 
-    plugins: [require('flowbite/plugin'),forms, typography],
+    plugins: [require('flowbite/plugin'),require('flowbite-typography'),forms, typography],
 
     safelist:[
         'bg-green-100','bg-red-100','bg-blue-100','bg-yellow-100'
