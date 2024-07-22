@@ -20,6 +20,9 @@ class CreatePostsTable extends Migration
             $table->foreignId('author_id')->constrained(
                 table: 'users', indexName: 'posts_author_id'
             );
+            $table->foreignId('category_id')->constrained(
+                table: 'categories', indexName: 'posts_category_id'
+            );
             $table->text('body');
             $table->timestamps();
         });
