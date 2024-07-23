@@ -55,8 +55,8 @@ Route::get('/politik', function () {
     return view('politik', ['title' =>'politik Page']);
 });
 
-Route::get('/hukum', function () {
-    return view('hukum', ['title' =>'hukum Page']);
+Route::get('/hiburan', function () {
+    return view('hiburan', ['title' =>'hukum Page']);
 });
 
 Route::get('/pendidikan', function () {
