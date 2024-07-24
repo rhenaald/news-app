@@ -15,26 +15,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // index
     public function index() : View
     {
         $categories = Category::latest()->paginate(10);
         return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // create
     public function create(): View
     {
         return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // store
     public function store(Request $request): RedirectResponse
     {
         // Validasi input
@@ -65,9 +59,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil dibuat.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // show
     public function show(string $id): View
     {
         // $category = Category::findOrFail($id);
@@ -76,15 +68,14 @@ class CategoryController extends Controller
         // return view('categories.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // edit
     public function edit(string $id): View
     {
         $category = Category::findOrFail($id);
         return view('categories.edit', compact('category'));
     }
 
+    // update
     public function update(Request $request, string $id): RedirectResponse
     {
         $validated = $request->validate([
@@ -111,9 +102,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // delete
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
