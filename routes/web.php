@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('home', [
@@ -12,20 +13,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/posts/{post:slug}', function (Post $post) {
-    return view('post', [
-        'title' => 'Single Post',
-        'post' => $post
-    ]);
-});
-
-Route::get('/authors/{user:username}', function (User $user) {
-    $sub_judul = $user->name ? count($user->posts) .  ' Artikel by ' . $user->name : '';
-    return view('home', [
-        'sub_judul'=>$sub_judul,
-        'title' => 'artikel by ' . $user->name,
-        'posts' => $user->posts]);
-});
+// kategori
+Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 
 Route::get('/categories/{category:slug}', function (Category $category) {
     $sub_judul = $category->name ? ' Artikel in ' . $category->name : '';
@@ -33,6 +22,28 @@ Route::get('/categories/{category:slug}', function (Category $category) {
         'sub_judul'=>$sub_judul,
         'title' => 'artikel in ' . $category->name,
         'posts' => $category->posts]);
+});
+
+// Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+// Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+// Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+// Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
+
+
+
+Route::get('/posts/{post:slug}', function (Post $post) {
+    return view('post', [
+        'title' => 'Single Post',
+        'post' => $post
+    ]);
+});
+
+Route::get('/authors/{user:id}', function (User $user) {
+    $sub_judul = $user->name ? count($user->posts) .  ' Artikel by ' . $user->name : '';
+    return view('home', [
+        'sub_judul'=>$sub_judul,
+        'title' => 'artikel by ' . $user->name,
+        'posts' => $user->posts]);
 });
 
 Route::get('/terkini', function () {
@@ -69,6 +80,10 @@ Route::get('/olahraga', function () {
 
 Route::get('/ekonomi', function () {
     return view('ekonomi', ['title' =>'ekonomi Page']);
+});
+
+Route::get('/main', function () {
+    return view('test', ['title' =>'ekonomi Page']);
 });
 
 Route::middleware([

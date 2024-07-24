@@ -10,13 +10,8 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="{{asset('dist/assets/css/main/app-dark.css')}}">
-        <link rel="stylesheet" href="{{asset('dist/assets/css/main/app.css')}}">
-        <link rel="shortcut icon" href="{{asset('dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-        <link rel="shortcut icon" href="{{asset('dist/assets/images/logo/favicon.png')}}" type="image/png">
-        
-        <link rel="stylesheet" href="{{asset('dist/assets/css/shared/iconly.css')}}">
 
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -24,26 +19,31 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <!-- <x-banner />
+        <x-banner />
 
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
 
-            
+            <!-- Page Heading -->
+            @if (isset($header))
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endif
+
+            <!-- Page Content -->
             <main>
-                {{ $slot }}
+                <!-- @include('layouts.partial.header') -->
             </main>
         </div>
 
         @stack('modals')
 
-        @livewireScripts -->
-
-    <script src="{{asset('dist/assets/js/bootstrap.js')}}"></script>
-    <script src="{{asset('dist/assets/js/app.js')}}"></script>
-    
-    <!-- Need: Apexcharts -->
-    <script src="{{asset('dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-    <script src="{{asset('dist/assets/js/pages/dashboard.js')}}"></script>
+        @livewireScripts
     </body>
+
+    <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/js/pages/dashboard.js"></script>
 </html>
