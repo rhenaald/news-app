@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -18,6 +20,9 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use SoftDeletes;
+    use SoftDeletes;
+
 
     /**
      * The attributes that are mass assignable.
@@ -27,9 +32,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'foto',
+        'slug',
         'password',
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -47,10 +59,6 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
-
     /**
      * Get the attributes that should be cast.
      *
@@ -62,6 +70,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function setProfilePhotoPathAttribute($value)
+    {
+        if ($value instanceof \Illuminate\Http\UploadedFile) {
+            $this->attributes['profile_photo_path'] = $value->store('profile_photos');
+        }
+    }
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->profile_photo_path
+            ? Storage::url($this->profile_photo_path)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name);
     }
     
     public function posts(): HasMany
