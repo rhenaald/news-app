@@ -5,6 +5,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('home', [
@@ -15,7 +16,6 @@ Route::get('/', function () {
 
 // kategori
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
-
 Route::get('/categories/{category:slug}', function (Category $category) {
     $sub_judul = $category->name ? ' Artikel in ' . $category->name : '';
     return view('home', [
@@ -23,14 +23,17 @@ Route::get('/categories/{category:slug}', function (Category $category) {
         'title' => 'artikel in ' . $category->name,
         'posts' => $category->posts]);
 });
-
 // Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
 // Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 // Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 // Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 
 
+// user
+Route::resource('users', UserController::class);
+Route::get('/authors/{user}', [AuthorController::class, 'show'])->name('authors.show');
 
+// another
 Route::get('/posts/{post:slug}', function (Post $post) {
     return view('post', [
         'title' => 'Single Post',
@@ -46,41 +49,41 @@ Route::get('/authors/{user:id}', function (User $user) {
         'posts' => $user->posts]);
 });
 
-Route::get('/terkini', function () {
-    return view('terkini', ['title' =>'blog terkini']);
-});
+// Route::get('/terkini', function () {
+//     return view('terkini', ['title' =>'blog terkini']);
+// });
 
-Route::get('/populer', function () {
-    return view('terpopuler', ['title' =>'blog terpopuler']);
-});
+// Route::get('/populer', function () {
+//     return view('terpopuler', ['title' =>'blog terpopuler']);
+// });
 
-Route::get('/top-news', function () {
-    return view('top-news', ['title' =>'top-news Page']);
-});
+// Route::get('/top-news', function () {
+//     return view('top-news', ['title' =>'top-news Page']);
+// });
 
-Route::get('/pilihan-editor', function () {
-    return view('pilihan-editor', ['title' =>'pilihan-editor Page']);
-});
+// Route::get('/pilihan-editor', function () {
+//     return view('pilihan-editor', ['title' =>'pilihan-editor Page']);
+// });
 
-Route::get('/politik', function () {
-    return view('politik', ['title' =>'politik Page']);
-});
+// Route::get('/politik', function () {
+//     return view('politik', ['title' =>'politik Page']);
+// });
 
-Route::get('/hiburan', function () {
-    return view('hiburan', ['title' =>'hukum Page']);
-});
+// Route::get('/hiburan', function () {
+//     return view('hiburan', ['title' =>'hukum Page']);
+// });
 
-Route::get('/pendidikan', function () {
-    return view('pendidikan', ['title' =>'pendidikan Page']);
-});
+// Route::get('/pendidikan', function () {
+//     return view('pendidikan', ['title' =>'pendidikan Page']);
+// });
 
-Route::get('/olahraga', function () {
-    return view('olahraga', ['title' =>'olahraga Page']);
-});
+// Route::get('/olahraga', function () {
+//     return view('olahraga', ['title' =>'olahraga Page']);
+// });
 
-Route::get('/ekonomi', function () {
-    return view('ekonomi', ['title' =>'ekonomi Page']);
-});
+// Route::get('/ekonomi', function () {
+//     return view('ekonomi', ['title' =>'ekonomi Page']);
+// });
 
 Route::get('/main', function () {
     return view('test', ['title' =>'ekonomi Page']);
