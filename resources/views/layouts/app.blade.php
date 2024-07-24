@@ -35,7 +35,7 @@
 
             <!-- Page Content -->
             <main>
-                <!-- @include('layouts.partial.header') -->
+                
             </main>
         </div>
 
