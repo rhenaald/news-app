@@ -22,6 +22,7 @@ class UserController extends Controller
     // create
     public function create(): View
     {
+        // $roles = Role::all();
         return view('users.create');
     }
 
@@ -33,7 +34,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
-
+            // 'role' => 'required|exists:roles,name',
         ]);
 
         $slug = Str::slug($validated['name']);
@@ -72,9 +73,10 @@ class UserController extends Controller
         ]);
     }
 
-    // edit
+    // edit   
     public function edit(User $user): View
     {
+        // $roles = Role::all();
         return view('users.edit', compact('user'));
     }
 
@@ -85,7 +87,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|confirmed|min:8',
-            'profile_photo_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi foto profil
+            'profile_photo_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
+            
         ]);
     
         $user->update([
