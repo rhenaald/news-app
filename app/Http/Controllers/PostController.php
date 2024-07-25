@@ -15,7 +15,11 @@ class PostController extends Controller
     // index
     public function index(): View
     {
-        $posts = Post::with('author', 'category')->latest()->paginate(10);
+        if (auth()->user()->isAdmin()) {
+            $posts =Post::with('author', 'category')->latest()->paginate(10);
+        } else {
+            $posts = Post::with('author', 'category')->where('author_id', auth()->user()->id)->latest()->paginate(10);
+        }
         return view('posts.index', compact('posts'));
     }
 
