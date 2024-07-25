@@ -7,19 +7,18 @@ use App\Models\Category;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\LoginController;
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home', [
         'title' => 'Home Page',
         'posts' => Post::all()
     ]);
 });
 
-Route::post('/posts/upload-image', [PostController::class, 'uploadImage'])->name('posts.uploadImage');
+// Route::post('/posts/upload-image', [PostController::class, 'uploadImage'])->name('posts.uploadImage');
 
 // kategori
-Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+
 Route::get('/categories/{category:slug}', function (Category $category) {
     $sub_judul = $category->name ? ' Artikel in ' . $category->name : '';
     return view('home', [
@@ -28,17 +27,7 @@ Route::get('/categories/{category:slug}', function (Category $category) {
         'posts' => $category->posts]);
 });
 
-// Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-// Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-// Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-// Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
- 
-//autentikasi
-Route::get('/login',[LoginController::class,'index'])->name('login');
-Route::post('/login-proses', [LoginController::class, 'login-proses'])->name('login-proses');
-
 // users
-Route::resource('users', UserController::class);
 Route::get('/authors/{user:slug}', function (User $user) {
     $sub_judul = $user->name ? count($user->posts) .  ' Artikel by ' . $user->name : '';
     return view('home', [
@@ -48,7 +37,6 @@ Route::get('/authors/{user:slug}', function (User $user) {
 });
 
 // posts
-Route::resource('posts', PostController::class);;
 Route::get('/posts/{post:slug}', function (Post $post) {
     return view('post', [
         'title' => 'Single Post',
@@ -56,6 +44,10 @@ Route::get('/posts/{post:slug}', function (Post $post) {
     ]);
 });
 
+
+Route::get('/profile', function () {
+    return view('profile');
+});
 // another
 
 
@@ -95,9 +87,6 @@ Route::get('/posts/{post:slug}', function (Post $post) {
 //     return view('ekonomi', ['title' =>'ekonomi Page']);
 // });
 
-Route::get('/admin', function () {
-    return view('board', ['title' =>'ekonomi Page']);
-});
 
 // Route::middleware([
 //     'auth:sanctum',
@@ -108,3 +97,14 @@ Route::get('/admin', function () {
 //         return view('dashboard');
 //     })->name('dashboard');
 // });
+
+Route::middleware(['role:admin|editor'])->group(function () {
+    Route::view('/dashboard', 'dashboard');
+    Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('posts', PostController::class);
+});
+
+// Route::view('/admin', 'test')->middleware('role:admin');
+// Route::view('/editor', 'test')->middleware('role:editor');
+// Route::view('/standard', 'test')->middleware('role:standard');
