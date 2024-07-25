@@ -14,33 +14,39 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::Create([
-        //     'name' => 'ikhwan Kurniawan Julianto',
-        //     'username' => "ikhwan-kurniawan",
-        //     'email' => 'ikhwan@example.com',
-        //     'email_verified_at' => now(),
-        //     'password' => static::$password ??= Hash::make('password'),
-        //     'two_factor_secret' => null,
-        //     'two_factor_recovery_codes' => null,
-        //     'remember_token' => Str::random(10),
-        //     'profile_photo_path' => null,
-        //     'current_team_id' => null,
-        // ]);
+        //users
+        $users = [
+            [
+                // admin
+                'name' => "admin",
+                'email' => "admin@example.com",
+                'password' => "admin",
+                'role' => 'admin'
+            ],
+            [
+                // editor
+                'name' => "editor",
+                'email' => "testeditor@example.com",
+                'password' => "editor",
+                'role' => 'editor'
+            ],
+            [
+                // standard
+                'name' => "standard",
+                'email' => "standard@example.com",
+                'password' => "standard",
+                'role' => 'standard'
 
-        User::factory()->create([
-            'name' => 'ikhwan Kurniawan Julianto',
-            'email' => 'ikhwan@example.com',
-            'slug' => 'ikhwan',
-            'password' => '123456789'
-        ]);
-        
-        User::factory()->create([
-            'name' => 'Lutfi Fajar Salladin',
-            'email' => 'lutfi@example.com',
-            'slug'=> 'lutfi',
-            'password' => '123456789'
-        ]);
+            ]
+        ];
 
-        User::factory(1)->create();
+        foreach ($users as $user) {
+            $created_user = User::create([
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'password' => Hash::make($user['password'])
+            ]);
+
+            $created_user->assignRole($user['role']);}
     }
 }
