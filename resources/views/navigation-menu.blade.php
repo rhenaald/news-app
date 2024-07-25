@@ -99,7 +99,8 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
-
+                            <!-- {{ route('login') }}
+                            {{ route('register') }} -->
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -122,6 +123,7 @@
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
+
                     </x-dropdown>
                 </div>
             </div>
