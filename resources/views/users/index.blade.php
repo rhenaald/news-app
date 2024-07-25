@@ -26,10 +26,9 @@
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">ID</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Name</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Email</th>
-                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Profile Photo</th>
+                            <!-- <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Profile Photo</th> -->
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Created</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300">Action</th>
                         </tr>
@@ -37,15 +36,14 @@
                     <tbody>
                         @foreach($users as $user)
                             <tr>
-                                <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $user->id }}</td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $user->name }}</td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $user->email }}</td>
-                                <td class="px-6 py-4 border-b border-gray-300 text-sm">
+                                <!-- <td class="px-6 py-4 border-b border-gray-300 text-sm">
                                     @if ($user->profile_photo_path)
-                                        <img src="#" alt="Profile Photo" class="w-12 h-12 rounded-full">
+                                        <img src="{{ $user['profile_photo_path'] }}" alt="Profile Photo" class="w-12 h-12 rounded-full">
                                     @else
                                         <span>No Photo</span>
-                                    @endif
+                                    @endif -->
                                 </td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $user->created_at->diffForHumans() }}</td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">

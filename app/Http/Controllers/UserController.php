@@ -33,7 +33,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
-            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi foto profil
+
         ]);
 
         $slug = Str::slug($validated['name']);
@@ -52,7 +52,10 @@ class UserController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'slug' => $slug,
+
         ];
+
+        User::create($userData);
 
         // Redirect atau respon yang sesuai
         return redirect()->route('users.index')->with('success', 'User created successfully.');
@@ -82,7 +85,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|confirmed|min:8',
-            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi foto profil
+            'profile_photo_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi foto profil
         ]);
     
         $user->update([

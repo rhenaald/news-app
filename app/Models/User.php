@@ -12,6 +12,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use SoftDeletes;
+    use HasRoles;
 
 
     /**
@@ -31,7 +33,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'foto',
+        // 'profile_photo_path',
         'slug',
         'password',
     ];
@@ -85,8 +87,9 @@ class User extends Authenticatable
             : 'https://ui-avatars.com/api/?name=' . urlencode($this->name);
     }
     
-    public function posts(): HasMany
+    public function posts()
     {
         return $this->hasMany(Post::class, 'author_id');
     }
+
 }

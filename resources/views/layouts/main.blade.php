@@ -24,7 +24,7 @@
    
   </head>
 
-  <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+  <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-zinc-50 text-slate-500">
     <!-- sidenav  -->
     @include('layouts.partial.header')
        @yield('content')
