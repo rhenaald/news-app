@@ -36,13 +36,12 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:posts,slug',
             'author_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'body' => 'required|string',
         ]);
 
-        $slug = $validated['slug'] ?? Str::slug($validated['title']);
+        $slug =  Str::slug($validated['title']);
 
         // Jika slug sudah ada, tambahkan angka untuk menghindari duplikasi
         $originalSlug = $slug;
