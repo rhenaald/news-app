@@ -6,7 +6,6 @@
                 <header class="mb-4 lg:mb-6 not-format">
                     
                     <!-- Gambar Artikel -->
-                    <img src="#" alt="{{ $post->title }}" class="w-full h-72 object-cover rounded-lg mb-4 shadow">
 
                     <address class="flex items-center mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900">
