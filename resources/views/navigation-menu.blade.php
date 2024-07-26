@@ -1,5 +1,3 @@
-
-
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,8 +97,7 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
-                            <!-- {{ route('login') }}
-                            {{ route('register') }} -->
+
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -123,7 +120,6 @@
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
-
                     </x-dropdown>
                 </div>
             </div>
