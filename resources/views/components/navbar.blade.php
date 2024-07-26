@@ -8,7 +8,7 @@
           <div class="hidden md:block">
             <div class="flex items-baseline space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')">Home</x-nav-link-header-news>
+              <x-nav-link-header-news type="nav" href="/home" :active="request()->is('/')">Home</x-nav-link-header-news>
               <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')">Terkini</x-nav-link-header-news>
               <x-nav-link-header-news type="nav" href="/profile">Profile</x-nav-link-header-news>
               @role(['admin','editor'])
@@ -90,20 +90,14 @@
             </div>
           </div>
 
-          <!-- Kotak kecil yang muncul di samping foto -->
-          <div x-show="open" @click.away="open = false" class="absolute top-10 left-2 mt-2 w-48 bg-white text-white rounded-md shadow-lg">
-            <div class="px-4 py-3">
-              <x-nav-link-header-news type="default" href="/profile" :active="request()->is('profile')" mobile="true">Your profile</x-nav-link-header-news>
-              <!-- <x-nav-link-header-news type="default" href="/setting" :active="request()->is('setting')" mobile="true">Setting</x-nav-link-header-news> -->
-              <x-nav-link-header-news type="default" href="/signout" :active="request()->is('sign-out')" mobile="true">Sign out</x-nav-link-header-news>
-            </div>
-          </div>
+          
+              
 
         </div>
-        <!-- Links di bawah -->
         <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')" mobile="true">Home</x-nav-link-header-news>
         <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')" mobile="true">Terkini</x-nav-link-header-news>
-      
+        <a href="/profile" class="block px-4 py-2 text-sm text-white" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+        <x-nav-link-header-news type="nav" href="/signout" :active="request()->is('sign-out')" mobile="true">Sign out</x-nav-link-header-news>
       </div>
   </div>
 
