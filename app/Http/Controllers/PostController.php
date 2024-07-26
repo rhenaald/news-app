@@ -50,13 +50,13 @@ class PostController extends Controller
             $count++;
         }
 
-        $postData([
+        $postData=[
             'title' => $validated['title'],
             'slug' => $slug,
-            'author_id' => Auth::id(),
+            'author_id' => auth()->user()->id,
             'category_id' => $validated['category_id'],
-            'body' => $validated['body'],
-        ]);
+            'body' => $validated['body']
+        ];
 
         $post = new Post;
         $post->title = $postData['title'];
@@ -71,8 +71,10 @@ class PostController extends Controller
     // show
     public function show(int $id): View
     {
-        // $post = Post::findOrFail($id);
-        // return view('posts.show', compact('post'));
+            return view('post', [
+                'title' => 'Single Post',
+                'post' => $post
+            ]);
     }
 
     // edit
@@ -89,7 +91,6 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'author_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'body' => 'required|string',
         ]);
@@ -109,7 +110,7 @@ class PostController extends Controller
         $post->update([
             'title' => $validated['title'],
             'slug' => $slug,
-            'author_id' => $validated['author_id'],
+            'author_id' => auth()->user()->id,
             'category_id' => $validated['category_id'],
             'body' => $validated['body'],
         ]);
