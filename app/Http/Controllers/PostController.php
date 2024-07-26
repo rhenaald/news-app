@@ -36,7 +36,6 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'author_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'body' => 'required|string',
         ]);
@@ -51,13 +50,20 @@ class PostController extends Controller
             $count++;
         }
 
-        Post::create([
+        $postData([
             'title' => $validated['title'],
             'slug' => $slug,
-            'author_id' => $validated['author_id'],
+            'author_id' => Auth::id(),
             'category_id' => $validated['category_id'],
             'body' => $validated['body'],
         ]);
+
+        $post = new Post;
+        $post->title = $postData['title'];
+        $post->slug = $postData['slug'];
+        $post->author_id = $postData['author_id'];
+        $post->slug = $postData['slug'];
+        $post = Post::create($postData);
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
