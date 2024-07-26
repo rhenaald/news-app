@@ -1,5 +1,5 @@
 <x-layout>
-    <x-slot:title>{{ $title }}</x-slot>
+    <x-slot:title>{{ $title ?? "homepage"}}</x-slot>
 
     <h2 class="mb-1 text-4xl tracking-tight font-bold text-sky-500">{{ $sub_judul ?? "" }}</h2>
 
