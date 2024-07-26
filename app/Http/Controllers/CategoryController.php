@@ -60,13 +60,16 @@ class CategoryController extends Controller
     }
 
     // show
-    public function show(string $id): View
+    public function show(Category $category)
     {
-        // $category = Category::findOrFail($id);
-
-        // //render view with product
-        // return view('categories.show', compact('category'));
-    }
+        $sub_judul = $category->name ? ' Artikel in ' . $category->name : '';
+        
+        return view('home', [
+            'sub_judul' => $sub_judul,
+            'title' => 'Artikel in ' . $category->name,
+            'posts' => $category->posts,
+            'categories' => Category::all() // Mengirimkan kategori untuk digunakan di header
+        ]);}
 
     // edit
     public function edit(string $id): View
