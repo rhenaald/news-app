@@ -36,13 +36,14 @@
                     <tbody>
     @foreach($posts as $post)
     @if($post->author)
+            @if($post->category)
         <tr>
             <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $post->title }}</td>
             <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $post->author->name }}</td>
             <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $post->category->name}}</td>
             <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $post->created_at->diffForHumans() }}</td>
             <td class="px-6 py-4 border-b border-gray-300 text-sm">
-                <a href="/posts/{{ $post->slug }}" class="text-blue-600 hover:text-blue-800">View</a>
+                <a href="post/{{ $post->slug }}" class="text-blue-600 hover:text-blue-800">View</a>
                 <a href="{{ route('posts.edit', $post->id) }}" class="text-green-600 hover:text-green-800 ml-2">Edit</a>
                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                     @csrf
@@ -51,6 +52,7 @@
                 </form>
             </td>
         </tr>
+        @endif
         @endif
     @endforeach
 </tbody>
