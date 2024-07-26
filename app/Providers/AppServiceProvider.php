@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         View::composer('components.header', function ($view) {
             $categories = Category::all();
             $view->with('categories', $categories);
