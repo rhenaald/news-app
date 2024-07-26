@@ -19,6 +19,11 @@ class Category extends Model
         ]; 
 
     protected $hidden =[];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     
     public function posts(): HasMany
     {
