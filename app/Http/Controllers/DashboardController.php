@@ -20,7 +20,7 @@ class DashboardController extends Controller
     $users = User::all();
 
     // Mengirimkan data ke view menggunakan compact
-    return view('dashboard', compact('posts', 'categories', 'users'));
+    return view('panel', compact('posts', 'categories', 'users'));
 }
 
 
