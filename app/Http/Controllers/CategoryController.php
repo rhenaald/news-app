@@ -69,7 +69,7 @@ class CategoryController extends Controller
             'title' => 'Artikel in ' . $category->name,
             'posts' => $category->posts,
             'categories' => Category::all() // Mengirimkan kategori untuk digunakan di header
-        ]);}
+    ]);}
 
     // edit
     public function edit(string $id): View
