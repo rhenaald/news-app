@@ -3,7 +3,8 @@
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center justify-center w-full">
           <div class="flex-shrink-0">
-          </div>
+            <!-- Tempat logo atau elemen lain -->
+      </div>
           <div class="hidden md:block">
             <div class="flex items-baseline space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
