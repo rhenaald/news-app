@@ -26,7 +26,7 @@
                     <thead>
                         <tr>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Name</th>
-                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Slug</th>
+                            <!-- <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Slug</th> -->
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Color</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-800 tracking-wider">Created</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300">Action</th>
@@ -36,7 +36,7 @@
                         @foreach($categories as $category)
                             <tr>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $category->name }}</td>
-                                <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $category->slug }}</td>
+                                <!-- <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $category->slug }}</td> -->
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $category->color }}</td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">{{ $category->created_at->diffForHumans() }}</td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm">
