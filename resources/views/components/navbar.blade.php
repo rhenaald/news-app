@@ -10,9 +10,10 @@
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')">Home</x-nav-link-header-news>
               <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')">Terkini</x-nav-link-header-news>
-              <x-nav-link-header-news type="nav" href="/populer" :active="request()->is('populer')">Terpopuler</x-nav-link-header-news>
-              <x-nav-link-header-news type="nav" href="/top-news" :active="request()->is('top-news')">Top News</x-nav-link-header-news>
-              <x-nav-link-header-news type="nav" href="/pilihan-editor" :active="request()->is('pilihan-editor')">Pilihan Editor</x-nav-link-header-news>
+              <x-nav-link-header-news type="nav" href="/profile">Profile</x-nav-link-header-news>
+              @role(['admin','editor'])
+              <x-nav-link-header-news type="nav" href="/panel" >Dashboard</x-nav-link-header-news>
+              @endrole
             </div>
           </div>
         </div>
@@ -39,7 +40,7 @@
                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                 <!-- Active: "bg-gray-100", Not Active: "" -->
                  @role(['admin','editor'])
-                <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Dashboard</a>
+                <a href="/panel" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Dashboard</a>
                 @endrole
                 <a href="/profile" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
                 <form method="POST" action="{{ route('logout') }}" x-data>
@@ -93,7 +94,7 @@
           <div x-show="open" @click.away="open = false" class="absolute top-10 left-2 mt-2 w-48 bg-white text-white rounded-md shadow-lg">
             <div class="px-4 py-3">
               <x-nav-link-header-news type="default" href="/profile" :active="request()->is('profile')" mobile="true">Your profile</x-nav-link-header-news>
-              <x-nav-link-header-news type="default" href="/setting" :active="request()->is('setting')" mobile="true">Setting</x-nav-link-header-news>
+              <!-- <x-nav-link-header-news type="default" href="/setting" :active="request()->is('setting')" mobile="true">Setting</x-nav-link-header-news> -->
               <x-nav-link-header-news type="default" href="/signout" :active="request()->is('sign-out')" mobile="true">Sign out</x-nav-link-header-news>
             </div>
           </div>
@@ -102,9 +103,7 @@
         <!-- Links di bawah -->
         <x-nav-link-header-news type="nav" href="/" :active="request()->is('/')" mobile="true">Home</x-nav-link-header-news>
         <x-nav-link-header-news type="nav" href="/terkini" :active="request()->is('terkini')" mobile="true">Terkini</x-nav-link-header-news>
-        <x-nav-link-header-news type="nav" href="/populer" :active="request()->is('populer')" mobile="true">Terpopuler</x-nav-link-header-news>
-        <x-nav-link-header-news type="nav" href="/top-news" :active="request()->is('top-news')" mobile="true">Top News</x-nav-link-header-news>
-        <x-nav-link-header-news type="nav" href="/pilihan-editor" :active="request()->is('pilihan-editor')" mobile="true">Pilihan Editor</x-nav-link-header-news>
+      
       </div>
   </div>
 
