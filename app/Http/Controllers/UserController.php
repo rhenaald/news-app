@@ -34,7 +34,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
-            // 'role' => 'required|exists:roles,name',
+            'role' => 'required|exists:roles,name',
         ]);
 
         $slug = Str::slug($validated['name']);
@@ -52,12 +52,19 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => $validated['role'],
             'slug' => $slug,
-
         ];
 
-        User::create($userData);
+        $user = new User;
+        $user->name = $userData['name'];
+        $user->email = $userData['email'];
+        $user->password = $userData['password'];
+        $user->slug = $userData['slug'];
+        $user = User::create($userData);
+        $user->assignRole($userData['role']);
 
+        $user->save();
         // Redirect atau respon yang sesuai
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
@@ -87,17 +94,40 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|confirmed|min:8',
-            'profile_photo_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
-            
-        ]);
-    
-        $user->update([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $request->filled('password') ? Hash::make($validated['password']) : $user->password,
-            'profile_photo_path' => $request->file('profile_photo') ? $request->file('profile_photo')->store('profile_photos') : $user->profile_photo_path,
+            'role' => 'required|exists:roles,name',
+            'profile_photo_path' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        if ($request->filled('password')) {
+            $user->password = Hash::make($validated['password']);
+        }
+        $slug = Str::slug($validated['name']);
+
+        // Jika slug sudah ada, tambahkan angka untuk menghindari duplikasi
+        $originalSlug = $slug;
+        $count = 1;
+        while (User::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+        
+        $userData = [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => $validated['role'],
+            'slug' => $slug,
+        ];
+
+        $user->name = $userData['name'];
+        $user->email = $userData['email'];
+        $user->password = $userData['password'];
+        $user->slug = $userData['slug'];
+
+        $user->syncRoles($userData['role']);
+
+        $user->save();
+    
         return redirect()->route('users.index')->with('success', 'Pengguna berhasil diperbarui.');
     }
 
