@@ -6,10 +6,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
+    use SoftDeletes;
+    use HasRoles;
+
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +33,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        // 'profile_photo_path',
+        'slug',
         'password',
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -30,8 +51,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
     /**
      * Get the attributes that should be cast.
      *
@@ -44,4 +77,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function setProfilePhotoPathAttribute($value)
+    {
+        if ($value instanceof \Illuminate\Http\UploadedFile) {
+            $this->attributes['profile_photo_path'] = $value->store('profile_photos');
+        }
+    }
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->profile_photo_path
+            ? Storage::url($this->profile_photo_path)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name);
+    }
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author_id');
+    }
+
 }
