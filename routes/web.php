@@ -49,7 +49,7 @@ Route::get('/profile', function () {
 //     return view('terkini', ['title' =>'blog terkini']);
 // });
 
-Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
+Route::get('/categori/{category:slug}', [CategoryController::class, 'show']);
 Route::resource('Home', HomeController::class);
 
 Route::middleware(['role:admin|editor'])->group(function () {
