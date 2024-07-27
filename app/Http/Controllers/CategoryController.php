@@ -23,7 +23,7 @@ class CategoryController extends Controller
     }
 
     // create
-    public function create(): View
+    public function create()
     {
         return view('categories.create');
     }
@@ -72,7 +72,7 @@ class CategoryController extends Controller
     ]);}
 
     // edit
-    public function edit(string $id): View
+    public function edit(string $id)
     {
         $category = Category::findOrFail($id);
         return view('categories.edit', compact('category'));
